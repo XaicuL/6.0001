@@ -313,13 +313,14 @@
 
 #function example
 
-def max_val(x,y):
-    if x > y:
+def max_val(x,y): #def function , name of function : max_val / list of formal parameters : x,y
+    if x > y: #body of function start
         print('return x')
         return x
     else:
         print('return y')
-        return y
+        return y #body of funtion end
 
-print(max_val(30,10))
-print(max_val(10,20))
+
+print(max_val(30,10))  #function call & assigned x,y
+print(max_val(10,20))  #function call & assigned x,y
