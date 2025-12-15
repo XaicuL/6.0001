@@ -149,15 +149,18 @@
 # # ######################################
 # # # EXAMPLE: Raising your own exceptions
 # # ######################################
-# def get_ratios(L1, L2):
-#     """ Assumes: L1 and L2 are lists of equal length of numbers
+# L1 = [1, 2, 3, 4]
+# L2 = [2, 0, 4, 0]
+#
+# def get_ratios8(L1, L2):
+#     """ Assumes: L1 and L2 are lists of equal length of numbers -> if L1 = [a,b,c] and L2 = [d,e,f]
 #         Returns: a list containing L1[i]/L2[i] """
-#     ratios = []
-#     for index in range(len(L1)):
+#     ratios = [] # list to store ratios
+#     for index in range(len(L1)): #index is variable that goes from 0 to len(L1)-1
 #         try:
-#             ratios.append(L1[index] / L2[index])
-#         except ZeroDivisionError:
-#             ratios.append(float('nan'))  # nan = Not a Number
+#             ratios.append(L1[index] / L2[index]) # append L1[i]/L2[i] to ratios
+#         except ZeroDivisionError: # if L2[i] is 0
+#             ratios.append(float('nan'))  # nan = Not a Number # append nan to ratios <=> append Not a Number to ratios
 #         except:
 #             raise ValueError('get_ratios called with bad arg')
 #         else:
@@ -165,44 +168,49 @@
 #         finally:
 #             print("executed no matter what!")
 #     return ratios
-#
-#
-# print(get_ratios([1, 4], [2, 4]))
+# #
+# #
+# print(get_ratios8([1, 4], [2, 4]))
 # #
 # #
 # # #######################################
 # # ## EXAMPLE: Exceptions and lists
 # # #######################################
-# # def get_stats(class_list):
-# #     new_stats = []
-# #     for person in class_list:
-# #         new_stats.append([person[0], person[1], avg(person[1])])
-# #     return new_stats
-# #
-# #
-# # # avg function: version without an exception
-# # # def avg(grades):
-# # #    return (sum(grades))/len(grades)
-# #
-# # # avg function: version with an exception
-# # def avg(grades):
-# #     try:
-# #         return sum(grades) / len(grades)
-# #     except ZeroDivisionError:
-# #         print('warning: no grades data')
-# #         return 0.0
-# #
-# #
-# # # avg function: version with assert
-# # def avg(grades):
-# #     assert len(grades) != 0, 'warning: no grades data'
-# #     return sum(grades) / len(grades)
-# #
-# #
-# # test_grades = [[['peter', 'parker'], [80.0, 70.0, 85.0]],
-# #                [['bruce', 'wayne'], [100.0, 80.0, 74.0]],
-# #                [['captain', 'america'], [80.0, 70.0, 96.0]],
-# #                [['deadpool'], []]]
-# #
-# # print(get_stats(test_grades))
+def get_stats(class_list):
+    new_stats = [] # new list to store stats
+    for person in class_list: # go through each person in class_list
+        new_stats.append([person[0], person[1], avg(person[1])])# append [name, grades, avg(grades)] to new_stats        print(new_stats)
+    return new_stats
 #
+#
+# # avg function: version without an exception
+def avg(grades):
+   return (sum(grades))/len(grades)
+
+print(get_stats([[['peter', 'parker'], [80.0, 70.0, 85.0]],]))
+
+
+# avg function: version with an exception
+def avg(grades):
+    try:
+        return sum(grades) / len(grades)
+    except ZeroDivisionError:
+        print('warning: no grades data')
+        return 0.0
+
+
+# avg function: version with assert
+def avg(grades):
+    assert len(grades) != 0, 'warning: no grades data'
+    return sum(grades) / len(grades)
+
+
+
+test_grades = ([['peter', 'parker'], [80.0, 70.0, 85.0]],
+               [['bruce', 'wayne'], [100.0, 80.0, 74.0]],
+               [['captain', 'america'], [80.0, 70.0, 96.0]],
+                [['deadpool'], []])
+#
+
+print(get_stats(test_grades))
+
