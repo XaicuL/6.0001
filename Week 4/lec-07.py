@@ -114,63 +114,65 @@
 # # ######################################
 # # # EXAMPLE: Exceptions and input
 # # ######################################
+from fontTools.misc.cython import returns
+
 
 #Without exception handling
 
-# a = int(input("Tell me one number: "))
-# b = int(input("Tell me another number: "))
-# print("a/b = ", a/b, 'Wt')
-# print("a+b = ", a+b, 'Wt')
+a = int(input("Tell me one number: "))
+b = int(input("Tell me another number: "))
+print("a/b = ", a/b, 'Wt')
+print("a+b = ", a+b, 'Wt')
 
 # First version with a single exception
-#
-# try:
-#     a = int(input("Tell me one number: "))
-#     b = int(input("Tell me another number: "))
-#     print("a/b = ", a / b, 'Ft & try')
-# except:
-#     print("Bug in user input." , 'Ft & except')
+
+try:
+    a = int(input("Tell me one number: "))
+    b = int(input("Tell me another number: "))
+    print("a/b = ", a / b, 'Ft & try')
+except:
+    print("Bug in user input." , 'Ft & except')
 
 # Second version with multiple exceptions
-#
-# try:
-#     a = int(input("Tell me one number: "))
-#     b = int(input("Tell me another number: "))
-#     print("a/b = ", a / b, 'Sd& try1')
-#     print("a+b = ", a + b , 'Sd& try2')
-# except ValueError:
-#     print("Could not convert to a number." , 'Sd& except1')
-# except ZeroDivisionError:
-#     print("Can't divide by zero" , 'Sd& except2')
-# except:
-#     print("Something went very wrong." , 'Sd& except3')
+
+try:
+    a = int(input("Tell me one number: "))
+    b = int(input("Tell me another number: "))
+    print("a/b = ", a / b, 'Sd& try1')
+    print("a+b = ", a + b , 'Sd& try2')
+except ValueError:
+    print("Could not convert to a number." , 'Sd& except1')
+except ZeroDivisionError:
+    print("Can't divide by zero" , 'Sd& except2')
+except:
+    print("Something went very wrong." , 'Sd& except3')
 # #
 # #
 # # ######################################
 # # # EXAMPLE: Raising your own exceptions
 # # ######################################
-# L1 = [1, 2, 3, 4]
-# L2 = [2, 0, 4, 0]
+L1 = [1, 2, 3, 4]
+L2 = [2, 0, 4, 0]
+
+def get_ratios8(L1, L2):
+    """ Assumes: L1 and L2 are lists of equal length of numbers -> if L1 = [a,b,c] and L2 = [d,e,f]
+        Returns: a list containing L1[i]/L2[i] """
+    ratios = [] # list to store ratios
+    for index in range(len(L1)): #index is variable that goes from 0 to len(L1)-1
+        try:
+            ratios.append(L1[index] / L2[index]) # append L1[i]/L2[i] to ratios
+        except ZeroDivisionError: # if L2[i] is 0
+            ratios.append(float('nan'))  # nan = Not a Number # append nan to ratios <=> append Not a Number to ratios
+        except:
+            raise ValueError('get_ratios called with bad arg')
+        else:
+            print("success")
+        finally:
+            print("executed no matter what!")
+    return ratios
 #
-# def get_ratios8(L1, L2):
-#     """ Assumes: L1 and L2 are lists of equal length of numbers -> if L1 = [a,b,c] and L2 = [d,e,f]
-#         Returns: a list containing L1[i]/L2[i] """
-#     ratios = [] # list to store ratios
-#     for index in range(len(L1)): #index is variable that goes from 0 to len(L1)-1
-#         try:
-#             ratios.append(L1[index] / L2[index]) # append L1[i]/L2[i] to ratios
-#         except ZeroDivisionError: # if L2[i] is 0
-#             ratios.append(float('nan'))  # nan = Not a Number # append nan to ratios <=> append Not a Number to ratios
-#         except:
-#             raise ValueError('get_ratios called with bad arg')
-#         else:
-#             print("success")
-#         finally:
-#             print("executed no matter what!")
-#     return ratios
-# #
-# #
-# print(get_ratios8([1, 4], [2, 4]))
+#
+print(get_ratios8([1, 4], [2, 4]))
 # #
 # #
 # # #######################################
@@ -214,3 +216,107 @@ test_grades = ([['peter', 'parker'], [80.0, 70.0, 85.0]],
 
 print(get_stats(test_grades))
 
+# -------------------------------------------------------------
+
+n = int(input('x = '))
+m = int(input('y = '))
+
+
+def fact_iter(n):
+    result = 1
+    for i in range(1,n+1):
+        result *= i
+    return result
+
+def fact_rec(m):
+    if m == 1:
+        return m
+    else:
+        return m * fact_rec(m - 1)
+
+# 1. 함수의 계산 결과를 변수에 할당 (print 제외)
+result_x = fact_iter(n)
+result_y = fact_rec(m)
+
+# 2. 결과 출력
+print(result_x, 'function : fact_iter')
+print(result_y, 'function : fact_rec')
+
+# 3. 계산 결과를 비교
+if result_x != result_y:
+    print(f'result_x != result_y because result_x is {result_x} and result_y is {result_y}')
+else:
+   print(f'result_x == result_y because result_x is {result_x} and result_y is {result_y}')
+
+# -------------------------------------------------------------
+#
+def fib(n):
+    if n == 0 or n == 1:
+        return 1
+    else:
+        return fib(n-1) + fib(n-2)
+
+
+def test_fib(n):
+    for i in range(n+1):
+        print(f'fib of {i} = {fib(i)}')
+
+print(fib(2))
+print(test_fib(2))
+
+# -------------------------------------------------------------
+
+def is_palindrome(s):
+    """docs"""
+def to_char(s):
+    s = s.lower()
+    letters = ''
+    for c in s :
+        if c in 'abcdefghijklmnopqrstuwxyz':
+            letters = letters + c
+        return letters
+
+def is_pal(s):
+    if len(s) <= 1:
+        print('about to return True from base case')
+        return True
+    else:
+        answer = s[0] == s[-1] and is_pal(s[1:-1])
+        print('about to return', answer,'for',s)
+        return answer
+
+    return is_pal(to_char(s))
+
+print('Try dogGod')
+print(is_palindrome('dogGod'))
+print('Try doGood')
+print(is_palindrome('doGood'))
+n = input('n= ')
+m = input('m= ')
+s = ''
+
+x = to_char(n)
+y = is_pal(m)
+
+print(x)
+print(y)
+
+# -------------------------------------------------------------
+
+def fib(x):
+    global num_fib_calls
+    num_fib_calls += 1
+
+    if x == 0 or x == 1:
+        return 1
+    else:
+        return fib(x-1)+fib(x-2)
+
+def test_fib(n):
+    for i in range(n+1):
+        global num_fib_calls
+        num_fib_calls = 0
+        print('fib of', i, '=', fib(i))
+        print('fib of', n, '=', fib(n))
+
+print(test_fib(6))
