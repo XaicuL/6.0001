@@ -4,25 +4,25 @@ import random
 #################################
 ## Animal abstract data type
 #################################
-class Animal(object):
-    def __init__(self, age):
-        self.age = age
-        self.name = None
-
-    def get_age(self):
-        return self.age
-
-    def get_name(self):
-        return self.name
-
-    def set_age(self, newage):
-        self.age = newage
-
-    def set_name(self, newname=""):
-        self.name = newname
-
-    def __str__(self):
-        return "animal:" + str(self.name) + ":" + str(self.age)
+# class Animal(object):
+#     def __init__(self, age):
+#         self.age = age
+#         self.name = None
+#
+#     def get_age(self):
+#         return self.age
+#
+#     def get_name(self):
+#         return self.name
+#
+#     def set_age(self, newage):
+#         self.age = newage
+#
+#     def set_name(self, newname=""):
+#         self.name = newname
+#
+#     def __str__(self):
+#         return "animal:" + str(self.name) + ":" + str(self.age)
 #
 #
 # print("\n---- animal tests ----")
@@ -38,12 +38,12 @@ class Animal(object):
 # #################################
 # ## Inheritance example
 # #################################
-class Cat(Animal):
-    def speak(self):
-        print("meow")
-
-    def __str__(self):
-        return "cat:" + str(self.name) + ":" + str(self.age)
+# class Cat(Animal):
+#     def speak(self):
+#         print("meow")
+#
+#     def __str__(self):
+#         return "cat:" + str(self.name) + ":" + str(self.age)
 
 #
 # print("\n---- cat tests ----")
@@ -60,28 +60,28 @@ class Cat(Animal):
 # #################################
 # ## Inheritance example
 # #################################
-class Person(Animal):
-    def __init__(self, name, age): #parameter is name & age
-        Animal.__init__(self, age)
-        self.set_name(name)
-        self.friends = [] #set list
-
-    def get_friends(self):
-        return self.friends
-
-    def speak(self):
-        print("hello")
-
-    def add_friend(self, fname):
-        if fname not in self.friends:
-            self.friends.append(fname)
-
-    def age_diff(self, other):
-        diff = self.age - other.age #define variable
-        print(abs(diff), "year difference")
-
-    def __str__(self):
-        return "person:" + str(self.name) + ":" + str(self.age)
+# class Person(Animal):
+#     def __init__(self, name, age): #parameter is name & age
+#         Animal.__init__(self, age)
+#         self.set_name(name)
+#         self.friends = [] #set list
+#
+#     def get_friends(self):
+#         return self.friends
+#
+#     def speak(self):
+#         print("hello")
+#
+#     def add_friend(self, fname):
+#         if fname not in self.friends:
+#             self.friends.append(fname)
+#
+#     def age_diff(self, other):
+#         diff = self.age - other.age #define variable
+#         print(abs(diff), "year difference")
+#
+#     def __str__(self):
+#         return "person:" + str(self.name) + ":" + str(self.age)
 
 
 # print("\n---- person tests ----")
@@ -99,39 +99,39 @@ class Person(Animal):
 # #################################
 # ## Inheritance example
 # #################################
-class Student(Person):
-    def __init__(self, name, age, major=None):
-        Person.__init__(self, name, age)
-        self.major = major
-
-    def __str__(self):
-        return "student:" + str(self.name) + ":" + str(self.age) + ":" + str(self.major)
-
-    def change_major(self, major):
-        self.major = major
-
-    def speak(self):
-        r = random.random()
-
-        if r < 0.25:
-            print("i have homework")
-        elif 0.25 <= r < 0.5:
-            print("i need sleep")
-        elif 0.5 <= r < 0.75:
-            print("i should eat")
-        else:
-            print("i am watching tv")
-
-
-print("\n---- student tests ----")
-s1 = Student('alice', 20, "CS")
-s2 = Student('beth', 18)
-print(s1)
-print(s2)
-print(s1.get_name(), "says:", end=" ")
-s1.speak()
-print(s2.get_name(), "says:", end=" ")
-s2.speak()
+# class Student(Person):
+#     def __init__(self, name, age, major=None):
+#         Person.__init__(self, name, age)
+#         self.major = major
+#
+#     def __str__(self):
+#         return "student:" + str(self.name) + ":" + str(self.age) + ":" + str(self.major)
+#
+#     def change_major(self, major):
+#         self.major = major
+#
+#     def speak(self):
+#         r = random.random()
+#
+#         if r < 0.25:
+#             print("i have homework")
+#         elif 0.25 <= r < 0.5:
+#             print("i need sleep")
+#         elif 0.5 <= r < 0.75:
+#             print("i should eat")
+#         else:
+#             print("i am watching tv")
+#
+#
+# print("\n---- student tests ----")
+# s1 = Student('alice', 20, "CS")
+# s2 = Student('beth', 18)
+# print(s1)
+# print(s2)
+# print(s1.get_name(), "says:", end=" ")
+# s1.speak()
+# print(s2.get_name(), "says:", end=" ")
+# s2.speak()
 #
 #
 # #################################
@@ -208,3 +208,31 @@ s2.speak()
 # print("r6 parent2:", r6.get_parent2())
 # print("r5 and r6 have same parents?", r5 == r6)
 # print("r4 and r6 have same parents?", r4 == r6)
+
+def is_pal(x):
+    temp = x[:]
+    temp.reverse()
+    return temp == x
+
+def silly(n):
+    for i in range(n):
+        result = []
+        elem = input("Enter element: ")
+        result.append(elem)
+    if is_pal(result):
+        print("yes")
+    else:
+        print("no")
+
+print(silly(2))
+
+
+
+
+
+
+
+
+
+
+
