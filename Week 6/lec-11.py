@@ -5,37 +5,49 @@ Created on Sun Oct  9 12:13:13 2016
 @author: ericgrimson
 """
 
+#
+# def bisect_search2(L, e):
+#     def bisect_search_helper(L, e, low, high):
+#         print('low: ' + str(low) + '; high: ' + str(high))  # added to visualize
+#         if high == low:
+#             return L[low] == e
+#         mid = (low + high) // 2
+#         if L[mid] == e:
+#             return True
+#         elif L[mid] > e:
+#             if low == mid:  # nothing left to search
+#                 return False
+#             else:
+#                 return bisect_search_helper(L, e, low, mid - 1)
+#         else:
+#             return bisect_search_helper(L, e, mid + 1, high)
+#
+#     if len(L) == 0:
+#         return False
+#     else:
+#         return bisect_search_helper(L, e, 0, len(L) - 1)
+#
+#
+#
+# testList = [3,2,5,2,1,24,4,22,13]
+# testList.sort()
+#
+# print("Sorted list:", testList)
+#
+# testList.append(0)
+# testList.sort()
+#
+# print("After append and sort:", testList)
+#
+#
+# print("\nBinary search for 13:")  #True
+# print(bisect_search2(testList, 13))
+#
+# print("\nBinary search for 99 (not in list):") #False
+# print(bisect_search2(testList, 99))
 
-def bisect_search2(L, e):
-    def bisect_search_helper(L, e, low, high):
-        print('low: ' + str(low) + '; high: ' + str(high))  # added to visualize
-        if high == low:
-            return L[low] == e
-        mid = (low + high) // 2
-        if L[mid] == e:
-            return True
-        elif L[mid] > e:
-            if low == mid:  # nothing left to search
-                return False
-            else:
-                return bisect_search_helper(L, e, low, mid - 1)
-        else:
-            return bisect_search_helper(L, e, mid + 1, high)
 
-    if len(L) == 0:
-        return False
-    else:
-        return bisect_search_helper(L, e, 0, len(L) - 1)
-
-
-testList = []
-for i in range(100):
-    testList.append(i)
-
-print(bisect_search2(testList, 76))
-
-
-def genSubsets(L):
+def genSubsets(L): #find All subsets of L
     res = []
     if len(L) == 0:
         return [[]]  # list of empty list
@@ -47,5 +59,5 @@ def genSubsets(L):
     return smaller + new  # combine those with last element and those without
 
 
-testSet = [1, 2, 3, 4]
+testSet = [1,2,3]
 print(genSubsets(testSet))
