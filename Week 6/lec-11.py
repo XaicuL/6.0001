@@ -46,18 +46,48 @@ Created on Sun Oct  9 12:13:13 2016
 # print("\nBinary search for 99 (not in list):") #False
 # print(bisect_search2(testList, 99))
 
+#
+# def genSubsets(L): #find All subsets of L
+#     res = []
+#     if len(L) == 0:
+#         return [[]]  # list of empty list
+#     smaller = genSubsets(L[:-1])  # all subsets without last element
+#     extra = L[-1:]  # create a list of just last element
+#     new = []
+#     for small in smaller:
+#         new.append(small + extra)  # for all smaller solutions, add one with last element
+#     return smaller + new  # combine those with last element and those without
+#
+#
+# testSet = [1,2,3]
+# print(genSubsets(testSet))
+#
+#
 
-def genSubsets(L): #find All subsets of L
-    res = []
-    if len(L) == 0:
-        return [[]]  # list of empty list
-    smaller = genSubsets(L[:-1])  # all subsets without last element
-    extra = L[-1:]  # create a list of just last element
-    new = []
-    for small in smaller:
-        new.append(small + extra)  # for all smaller solutions, add one with last element
-    return smaller + new  # combine those with last element and those without
+class Toy(object):
+    def __init__(self):
+        self._elem = []
+    def add(self, new_element):
+        self._elem += new_element
+    def size(self):
+        return len(self._elem)
 
+print(type(Toy))
+print(type(Toy.__init__), type(Toy.add), type(Toy.size))
+#
+# t1 = Toy()
+# print(type(t1))
+# print(type(t1.add))
+#
+# t2 = Toy()
+# print(t1 is t2) #False
 
-testSet = [1,2,3]
-print(genSubsets(testSet))
+t1 = Toy()
+t2 = Toy()
+
+t1.add = ([3.4])
+t2.add([4])
+
+print(t1.size() + t2.size())
+print(t1.add)
+print(t2.add)
