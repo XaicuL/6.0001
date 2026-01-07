@@ -1,9 +1,0 @@
-name: numpy-tutorial
-dependencies:
-  - ipython
-  - jupyterlab
-  - matplotlib
-  - numpy
-  - pillow
-  - pyqt
-
