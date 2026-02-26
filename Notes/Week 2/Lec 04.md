@@ -1,227 +1,155 @@
-# **functions & Scope**
+# **DECOMPOSITION, ABSTRACTION, AND FUNCTIONS**
 
-**1. 구조화의 기술 (Structuring)**
+## **1. 프로그램 구조화의 설계 철학**
 
-코드가 길어질수록 복잡해지는 것을 막기 위한 두 가지 전략
+코드의 양이 늘어나는 것이 반드시 좋은 프로그래머의 척도는 아니며, 좋은 프로그래머는 기능의 풍부함으로 측정된다. 대규모 문제 해결을 위해 분해와 추상화라는 기법이 도입된다.
 
-??: 코드가 길어져야 간지나지!!
-~~하......~~
--> 사무라이가 칼을 두 번 휘두르는걸 본 적 있나? ~~일단 나는 없다.~~
 
-• **분해 (Decomposition):** 큰 문제를 작고 독립적인 부분(Modules)으로 쪼개는 것. 
-(코드 정리라고 불러도 좋다. ~~클린코드 짱!!~~)
+### **(1) Decomposition (분해)**
 
-• **추상화 (Abstraction):** 내부의 복잡한 디테일은 숨기고, **"무엇을 하는지(What it does)"** 만 
-알면 쓸 수 있게 만드는 것. (블랙박스화)
-![[Pasted image 20260222220938.png]]
+- **메커니즘**: 코드를 자기 완결적이고 재사용 가능한 **모듈(Modules)** 단위로 분쇄하는 행위다.
+    
+- **[Necessity] 분해의 필연적 등장 배경**
+    
+    - **기존 방식의 모순**: 모든 명령어를 하나의 파일에 선형적으로 나열하는 방식은 소규모 문제에는 유효하나, 대규모 문제에서는 세부 사항의 추적과 관리가 물리적으로 불가능해지는 한계에 봉착한다.
+        
+    - **해결책**: 서로 다른 장치들이 협업하여 최종 목표를 달성하는 프로젝터 예시처럼, 코드를 모듈로 나누어 조직화하고 일관성을 유지한다.
+        
 
-**2. 함수 (Functions)**
+### **(2) Abstraction (추상화)**
 
-분해와 추상화를 구현하는 파이썬의 도구라고 보면 된다.
+- **메커니즘**: 코드의 복잡한 내부 구현 디테일을 숨기고, 사용자가 알아야 할 최소한의 인터페이스만 노출하는 **'블랙 박스(Black Box)'** 전략이다.
+    
+- **[Necessity] 추상화의 필연적 등장 배경**
+    
+    - **기존 방식의 모순**: 프로그래머가 도구의 물리적 작동 원리를 매 순간 완벽하게 인지해야 한다면, 상위 레벨의 논리 설계에 집중할 수 없는 인지 과부하 상태에 빠진다.
+        
+    - **해결책**: 상세 구현 방식을 보지 않아도 사용법(Specification)만 숙지하면 기능을 완벽히 활용할 수 있도록 디테일을 억제한다.
+        
 
-• **정의 (Definition):** `def` 키워드 사용. 코드를 실행하지 않고 저장만 해둠.
+---
 
-• **호출 (Call/Invocation):** 함수 이름 뒤에 `()`를 붙여서 실제로 실행함. (function call 이라 부른다)
+## **2. FUNCTIONS (함수): 구현의 실체**
 
-• **Docstring:** 함수 바로 아래 `""" """`로 적는 **설명서**. `help(함수명)`으로 확인 가능 
+함수는 재사용 가능한 코드 조각으로, 프로그램 내에서 "호출(Called)"되거나 "인용(Invoked)"되기 전까지는 실행되지 않는다.
 
+### **(1) 함수의 구조적 특징**
+
+- **구성 요소**: 이름(Name), 매개변수(Parameters), 본문(Body), 그리고 반환값(Returns)을 가진다.
+    
+- **Docstring**: 함수의 입력과 출력을 명시하는 사양(Specification)으로, 추상화를 실현하는 도구다.
+    
+예1)
 ```
+>def f(x): # [1]  
+>    """    Input: x (int or float)    Returns: x^2 + 1 (int or float)    """ # [2]    y = x**2 + 1 # [3]  
+>    return y # [4]  
   
-def f(x):
-'''y = f(x) 이고, f(x) = x+1 이라고 가정하자''' #해당 부분을 docs 라고 부른다. 설명서라고 보아도 좋다
-	return x + 1
-y = f(5) #정의역 x = 5 라고 하자(수학적으로는 대입) #이 부분이 function call 이다.
+>print(f(2))
 
-print(y)  
+5
+```
+#### **[Analysis] : 수학적 대응 관계의 박제**
 
+- **[1] Mapping 정의**: 수학에서 $f: X \to Y$라고 정의하듯, `def f(x)`는 입력값 $x$에 대해 특정 연산을 수행하겠다는 **대응 규칙**을 선언하는 행위다.
+    
+- **[2] Abstraction (사양 명시)**: 함수의 도메인(Input)과 공역(Returns)을 Docstring으로 명시하여, 내부 연산 과정을 몰라도 결과값을 예측할 수 있는 **사양(Specification)** 을 구축한다.
+    
+- **[3] Local Scope (격리의 필연성)**: 함수 내부의 `y`는 수학에서 말하는 **'임시 변수'** 다. 이 `y`는 함수 외부의 변수들과 논리적으로 완전히 격리되어 있으며, 함수가 종료되는 순간 소멸한다.
+    
+- **[4] `return`의 당위성**: 수학적 함수의 결과가 다음 식의 인수가 되듯, `return`은 계산된 $y$값을 호출자에게 전달하여 **연쇄적인 수치 연산**을 가능케 한다. 만약 `return`이 없다면 결과는 수학적으로 존재하지 않는 값인 `None`이 된다.
+
+### **(2) `return` vs `print`**
+
+- **기존 방식의 모순**: `print`는 단순히 콘솔에 값을 출력하여 인간의 시각적 확인을 도울 뿐, 프로그램 내부에서 데이터로서 재활용될 수 없는 **'소멸적 정보'**에 불과하다.
+    
+- **해결책**: `return`은 함수의 실행을 즉시 중단하고 결과값을 호출자(Caller)에게 바인딩하여, 이후의 논리 연산에 기여하는 **'살아있는 데이터'**로 전달한다.
+    
+- **[Check Point]**: 명시적인 `return`이 없는 함수는 파이썬 메커니즘에 의해 암묵적으로 **`None`**을 반환하며, 이는 값의 부재를 의미한다.
+
+**[Summary Table] return vs print**
+
+|**구분**|**return**|**print**|
+|---|---|---|
+|**본질**|**살아있는 데이터** (값의 반환)|**소멸적 정보** (시각적 출력)|
+|**위치**|함수 내부에서만 의미를 가짐|어디서나 사용 가능|
+|**영향**|실행 즉시 함수를 종료시킴|함수 실행 흐름에 영향을 주지 않음|
+|**활용**|다음 연산의 입력값으로 사용 가능|오직 인간의 디버깅/확인용으로만 사용|
+    
+--- 
+
+## **3. FUNCTIONS AS ARGUMENTS (고차 함수)**
+
+파이썬에서 함수는 **일급 객체(First-class object)** 다. 즉, 정수나 문자열처럼 변수에 할당될 수 있고, 다른 함수의 인자로 전달될 수 있으며, 함수의 결과로 반환될 수도 있다.
+
+### **(1) 함수 객체 전달의 메커니즘**
+
+- **개념**: 인자(Arguments)는 어떤 타입이든 될 수 있으며, 여기에는 **함수 타입**도 포함된다.
+    
+- **실행 흐름**:
+    
+    1. 함수 호출 시, 함수의 **이름(객체 주소)** 을 다른 함수의 파라미터에 바인딩한다.
+        
+    2. 인자로 전달받은 함수는 수신측 함수 내부에서 호출(`()`)되어 실행된다.
+        
+
+### **(2) [Necessity] 고차 함수의 필연적 등장 배경**
+
+- **기존 방식의 모순**: 특정 로직(예: 계산 방식)이 고정된 함수는 유연성이 떨어진다. 상황에 따라 서로 다른 계산 로직을 적용하려면 유사한 함수를 중복해서 만들어야 하는 비효율이 발생한다.
+    
+- **해결책**: 로직 자체(함수)를 인자로 넘김으로써, 하나의 함수가 다양한 전략을 수용할 수 있는 **고차원적 추상화**를 달성한다. 이는 코드의 재사용성을 극단으로 끌어올리는 핵심 장치다
+
+예1)
+```
+>def func_a():
+>   print('inside func_a') 
+
+>def func_c(z):
+>    print('inside func_c') 
+>    return z()             
+
+# [Analysis]: 실행 결과의 차이
+>print(func_c(func_a))      
+
+inside func_c
+inside func_a
+None
 ```
 
-**3. 핵심: Return vs print 
+#### **[Visual Logic Analysis: Step-by-Step]**
 
-가장 많이 헷갈리는 부분
+1. **Global Scope**: `func_a`와 `func_c`라는 함수 객체가 메모리에 생성된다.
+    
+2. **Invocation**: `func_c(func_a)`가 호출되면, `func_c` 내부의 로컬 변수 `z`는 글로벌의 `func_a` 객체를 가리키게 된다(Binding).
+    
+3. **Execution**: `func_c` 본문이 실행되고, `z()`를 만나는 순간 바인딩된 `func_a`가 호출된다.
+    
+4. **Return**: `func_a`가 실행을 마치고 `None`을 반환하면(명시적 return이 없으므로), 최종적으로 `func_c`도 그 값을 받아 호출자에게 전달한다.
 
-• **return**:
-- - 함수의 **결과값**을 호출한 곳(Caller)으로 돌려준다.
-- - `return`을 만나면 함수는 **즉시 종료**.
-- - 이 값을 변수에 저장하거나 다른 계산에 쓸 수 있다.
+**[Remark] : 객체(`f`) vs 실행 결과(`f()`)**
 
-• **print**:
+- **`func_a`**: 함수라는 **도구 그 자체**를 의미한다. 호출되지 않은 상태의 주소값이다.
+    
+- **`func_a()`**: 함수를 **실행한 결과물**을 의미한다. 반환값이 있다면 그 값이 전달된다.
+    
+ **[Remark ] 추상화의 확장성** 
+함수를 인자로 받는 설계는 "무엇을 할 것인가"와 "어떻게 실행할 것인가"를 분리한다. 이는 나중에 배울 **데코레이터(Decorator)**나 **데이터 처리 라이브러리**의 근간이 되는 논리적 필연성이다.
 
-   - 값을 단순히 콘솔(화면)에 **보여주기만** 하고 끝
+**[Check Point]**: 고차 함수를 사용할 때 괄호를 붙여서 넘기면 함수가 실행된 후의 '결과값'이 전달되므로, 함수 자체를 조작하려는 의도와 어긋나게 된다.
 
-   - 함수 밖으로 값을 전달하지 않는다 (변수에 저장하면 `None`이 저장됨).
+## **4. VARIABLE SCOPE (변수 범위): 논리의 경계**
 
-**4. 변수의 범위 (Variable Scope)**
+함수 호출 시 새로운 **Scope/Frame/Environment**가 생성되며, 이는 이름과 객체 사이의 매핑을 결정하는 독립적인 공간이다.
 
-• **Global Scope (전역):** 메인 프로그램에서 정의된 변수. 어디서든 읽을 수 있음.
+### **(1) 격리와 바인딩의 메커니즘**
 
-• **Local Scope (지역):** 함수 **안에서** 정의된 변수. 함수가 끝나면 **사라짐**.
+- **바인딩**: 실제 인자(Actual parameter)의 값은 함수의 형식 매개변수(Formal parameter)에 복사되어 바인딩된다.
+    
+- **수정의 제약**: 함수 내부에서는 외부(Global) 변수를 참조하여 읽는 것은 가능하나, 직접 수정하는 행위는 엄격히 제한된다.
+    
+- **[Check Point]**: 함수 내부에서 외부 변수와 동일한 이름에 값을 할당하면 새로운 지역 변수가 생성되어 외부 변수를 보호하며, 이를 무시하고 할당 전 수정을 시도할 경우 `UnboundLocalError`가 발생한다.
+    
 
-```
-set = [2,4,6,8]
+### **(2) [Remark] 함수라는 객체의 확장성 (Functions as Arguments)**
 
-def Name(x):
-
-	x = set.append(10) #Local
-
-	return x
-
-x = set.copy() #Global
-
-```
-
-• **주의:** 함수 안에서 Global 변수와 같은 이름의 변수를 만들면, 
-	함수 안에서는 Local 변수가 우선임(영어로는 이렇게 말한다 Name Shadowing) 
-
-cf.
-python을 RUN 시키면 python은 보통 top - down 방식으로 위에서 아래로 순서대로 내려온다.
-근데 이때 def된 function이 있다면 function 안에 에러가 있을지라도 넘어간다.
-다만 아래에 print or function call을 했다면 다시 위로 올라가 해당 function을 검사하고
-Error OR ~Error을 시사한다.
-아래의 코드는 필자의 다른 저장소에서 가져온 코드인데, 왜 def를 써야**만** 하는지를 적나라하게 보여준다.
-그냥 가볍게 보자.
-
-```
-import sympy as sp
-sp.init_printing()
-
-x = sp.symbols('x')
-
-ex1 = x**2 - 1
-ex2 = x**2 + x
-ex3 = x+3
-
-cal_expanded = sp.expand(ex1 * ex2 * ex3)
-display(cal_expanded)
-######################################################
-print('-----------------------성질----------------------------')
-
-print('###교환법칙###')
-
-cal_A = ex1 * ex2
-cal_A_ep = sp.expand(cal_A)
-
-display(cal_A)
-display(cal_A_ep)
-
-cal_B = ex2 * ex1
-cal_B_ep = sp.expand(cal_B)
-
-display(cal_B)
-display(cal_B_ep)
-
-print('-----------------검증-----------------')
-
-if cal_A_ep == cal_B_ep:
-    print('교환법칙 성립')
-else:
-    print('교환법칙 성립X')
-
-######################################################
-
-print('###결합법칙###')
-
-cal_C = (ex1 * ex2) * ex3
-cal_C_ep = sp.expand(cal_C)
-
-display(cal_C)
-display(cal_C_ep)
-
-cal_D = ex1* (ex2 * ex3)
-cal_D_ep = sp.expand(cal_D)
-
-display(cal_D)
-display(cal_D_ep)
-
-print('-----------------검증2-----------------')
-
-if cal_C_ep == cal_D_ep:
-    print('결합법칙 성립')
-else:
-    print('결합법칙 성립X')
-
-######################################################
-
-print('###분배법칙(1)###')
-
-cal_E = ex1 * (ex2 + ex3)
-cal_E_ep = sp.expand(cal_E)
-
-display(cal_E)
-display(cal_E_ep)
-
-cal_F = (ex1 * ex2) + (ex1 * ex3)
-cal_F_ep = sp.expand(cal_F)
-
-display(cal_F)
-display(cal_F_ep)
-
-print('-----------------검증3-----------------')
-
-if cal_E_ep == cal_F_ep:
-    print('분배법칙 성립(1)')
-else:
-    print('분배법칙 성립X (1)')
-
-######################################################
-
-print('###분배법칙(2)###')
-
-cal_G = (ex1 + ex2) * ex3
-cal_G_ep = sp.expand(cal_G)
-
-display(cal_G)
-display(cal_G_ep)
-
-cal_H = (ex1 * ex3) + (ex2 * ex3)
-cal_H_ep = sp.expand(cal_H)
-
-display(cal_H)
-display(cal_H_ep)
-
-print('-----------------검증3-----------------')
-
-if cal_G_ep == cal_H_ep:
-    print('분배법칙 성립(2)')
-else:
-    print('분배법칙 성립X (2)')
-
-# cf
-# 하나하나 다 치다가 진짜 미칠 뻔 했다. 수학자 분들에게 존경을 표한다
-#그런데, 여기서 하나 보여주고픈게 있다. 우리는 def와 친해져야 할 이유가 있다. 다음의 코드를 보자
-
-def verify_all_polynomial_laws(A, B, C):
-
-    sp.init_printing()
-
-    # 1. 교환법칙
-    is_commutable = sp.expand(A * B) == sp.expand(B * A)
-
-    # 2. 결합법칙
-    is_associative = sp.expand((A * B) * C) == sp.expand(A * (B * C))
-
-    # 3. 분배법칙
-    dist_left = sp.expand(A * (B + C)) == sp.expand(A * B + A * C)
-    dist_right = sp.expand((A + B) * C) == sp.expand(A * C + B * C)
-
-    # --- 결과 출력 섹션 ---
-    print("\n" + "="*30)
-    print('-----------------검증-----------------')
-    print(f"1. 교환법칙: {'✅ 통과' if is_commutable else '❌ 실패'}")
-    print(f"2. 결합법칙: {'✅ 통과' if is_associative else '❌ 실패'}")
-    print(f"3. 분배법칙(좌): {'✅ 통과' if dist_left else '❌ 실패'}")
-    print(f"4. 분배법칙(우): {'✅ 통과' if dist_right else '❌ 실패'}")
-    print("="*30)
-
-    if all([is_commutable, is_associative, dist_left, dist_right]):
-        print('최종 결과 A*B*C')
-        display(sp.expand(A * B * C))
-    else:
-        print("\n오류 발생")
-
-verify_all_polynomial_laws(ex1, ex2, ex3)
-#hahahahahahahahahahahahahahahahahahaaaaaaaaaaaaa 내 10분은 무너졌어.
-
-```
-
-
+파이썬에서 함수는 인자(Arguments)로 전달될 수 있는 일급 객체다. 이는 함수 자체를 파라미터로 넘겨 내부에서 실행하는 고차원적 추상화를 가능케 한다

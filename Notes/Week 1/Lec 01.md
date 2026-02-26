@@ -1,6 +1,6 @@
 # **1. 컴퓨팅 사고 (Computational Thinking)** 란 무엇인가 ? 
 
-## 지식의 두 유형
+## 1 .지식의 두 유형
 
 - 선언적 지식(**Declarative**): "**무엇**인가(Fact)" 
 
@@ -65,7 +65,7 @@ print('avg2 = ',avg2) #15.0 (True)
 
 ---------
 
-# 3. 파이썬의 자료형(Objects & Types)
+## 3. 파이썬의 자료형(Objects & Types)
 
 • **Scalar Objects** (더 쪼갤 수 없는 것):
 	- **int** : 정수 (3)
@@ -183,7 +183,7 @@ x2a type :  <class 'int'>
 
 ---------------------
 
-# 4. 변수(Variable)
+## 4. 변수(Variable)
 
 - **수학적 변수**: 값을 담는 '그릇' 혹은 변화하는 '수' 그 자체.
 
@@ -213,7 +213,7 @@ x2a type :  <class 'int'>
 
 ---
 
-# 4 - 1. **변수 재할당과 바인딩의 변화** (Changing Bindings)**
+## 4 - 1. **변수 재할당과 바인딩의 변화** (Changing Bindings)**
 
 - **정의:** 이미 선언된 변수에 대입 연산자(`=`)를 재사용하여, 
   해당 변수가 참조하는 **객체(Object)**를 교체하는 행위.
