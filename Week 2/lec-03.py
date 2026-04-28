@@ -253,14 +253,77 @@
 #     mid = (high + low) / 2
 #
 # print(mid, 'is close to the log base 2 of', x)
+#
+# x = 0.0
+#
+# for i in  range(10):
+#     x = x + 0.1
+#
+# if x == 1.0:
+#     print("x is exactly 1.0")
+# else:
+#     print(x, 'is not 1.0')
+#
 
-x = 0.0
+#
+# cube = 8
+# #
+# # for guess in range(cube+1):
+# #     if guess**3 == cube:
+# #         print(f'cube root of {cube} is {guess}')
+# #
+#
+# for guess in range(abs(cube) + 1):
+#     if guess ** 3 >= abs(cube):
+#         break
+#
+#     if guess**3 != abs(cube):
+#         print(f'{cube} is not a perfect cube')
+#
+#     else:
+#         if cube < 0:
+#             guess = -guess
+#         print(f'Cube root of {str(cube)} is {str(guess)}')
+#
 
-for i in  range(10):
-    x = x + 0.1
 
-if x == 1.0:
-    print("x is exactly 1.0")
+cube = 27
+eps = 0.01
+guess = 0.0
+
+increment = 0.0001
+num_guess = 0
+
+while abs(guess ** 3 - cube) >= eps and guess <= cube:
+    guess += increment
+    num_guess += 1
+
+print(f'num guess = {num_guess}')
+
+if abs(guess ** 3 - cube) >= eps:
+    print(f'Failed on cube root of {cube}')
 else:
-    print(x, 'is not 1.0')
+    print(f'{guess} is close to the cube root of {cube}')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
