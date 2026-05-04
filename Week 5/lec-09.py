@@ -1,3 +1,4 @@
+from os import name
 import random
 
 
@@ -209,26 +210,31 @@ import random
 # print("r5 and r6 have same parents?", r5 == r6)
 # print("r4 and r6 have same parents?", r4 == r6)
 
-def is_pal(x):
-    temp = x[:]
-    temp.reverse()
-    return temp == x
+# def is_pal(x):
+#     temp = x[:]
+#     temp.reverse()
+#     return temp == x
 
-def silly(n):
-    for i in range(n):
-        result = []
-        elem = input("Enter element: ")
-        result.append(elem)
-    if is_pal(result):
-        print("yes")
-    else:
-        print("no")
+# def silly(n):
+#     for i in range(n):
+#         result = []
+#         elem = input("Enter element: ")
+#         result.append(elem)
+#     if is_pal(result):
+#         print("yes")
+#     else:
+#         print("no")
 
-print(silly(2))
+# print(silly(2))
+
+class Animal(object):
+    def __init__(self, age):
+        self.name = name
+        self.age = age
 
 
-
-
+ani = Animal(3) 
+print(ani.age)
 
 
 

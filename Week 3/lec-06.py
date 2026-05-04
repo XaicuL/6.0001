@@ -251,19 +251,31 @@ t2 = (t1, 3.25)
 #
 # print(intersect((1,'a',2),('b',2,'a') ))
 # ----------------- shallow vs deep copy -----------------
-import copy
+# import copy
+#
+# original = [['red', 'blue'], [1, 2]]
+# shallow_copy = original.copy()          # top-level copy only
+# deep_copy = copy.deepcopy(original)     # clones inner lists too
+#
+# # mutate shared inner list through original
+# original[0].append('green')
+# # mutate shared inner list through shallow copy
+# shallow_copy[1].append(3)
+# # replace top-level element in shallow copy
+# shallow_copy[0] = ['overwritten']
+#
+# print('original    :', original)
+# print('shallow_copy:', shallow_copy)
+# print('deep_copy   :', deep_copy)
 
-original = [['red', 'blue'], [1, 2]]
-shallow_copy = original.copy()          # top-level copy only
-deep_copy = copy.deepcopy(original)     # clones inner lists too
+# def printMove(fr, to):
+#     print(f'move from {str(fr)} to {str(to)}')
+#
+# def tower(n, fr, to, spare):
+#     if n == 1:
+#         printMove(fr, to)
+#     else:
+#         tower(n-1, fr, to, spare)
+#         tower(1, fr, to, spare)
+#         tower(n-1, fr, to, fr)
 
-# mutate shared inner list through original
-original[0].append('green')
-# mutate shared inner list through shallow copy
-shallow_copy[1].append(3)
-# replace top-level element in shallow copy
-shallow_copy[0] = ['overwritten']
-
-print('original    :', original)
-print('shallow_copy:', shallow_copy)
-print('deep_copy   :', deep_copy)
