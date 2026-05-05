@@ -64,30 +64,71 @@ Created on Sun Oct  9 12:13:13 2016
 #
 #
 
-class Toy(object):
-    def __init__(self):
-        self._elem = []
-    def add(self, new_element):
-        self._elem += new_element
-    def size(self):
-        return len(self._elem)
-
-print(type(Toy))
-print(type(Toy.__init__), type(Toy.add), type(Toy.size))
+# class Toy(object):
+#     def __init__(self):
+#         self._elem = []
+#     def add(self, new_element):
+#         self._elem += new_element
+#     def size(self):
+#         return len(self._elem)
+#
+# print(type(Toy))
+# print(type(Toy.__init__), type(Toy.add), type(Toy.size))
+# #
+# # t1 = Toy()
+# # print(type(t1))
+# # print(type(t1.add))
+# #
+# # t2 = Toy()
+# # print(t1 is t2) #False
 #
 # t1 = Toy()
-# print(type(t1))
-# print(type(t1.add))
-#
 # t2 = Toy()
-# print(t1 is t2) #False
+#
+# t1.add = ([3.4])
+# t2.add([4])
+#
+# print(t1.size() + t2.size())
+# print(t1.add)
+# print(t2.add)
 
-t1 = Toy()
-t2 = Toy()
+def bisection_search2(L, e):
+    def bisection_search_help(L, e, low, high):
+        if high == low:
+            return L[low] == e
 
-t1.add = ([3.4])
-t2.add([4])
+        mid = (low + high) // 2
 
-print(t1.size() + t2.size())
-print(t1.add)
-print(t2.add)
+        if L[mid] == e:
+            return True
+
+        elif L[mid] > e:
+            if low == mid:
+                return False
+            else:
+                return bisection_search_help(L, e, low, mid - 1)
+
+    if len(L) == 0:
+        return False
+    else:
+        return bisection_search_help(L, e, 0, len(L) - 1)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
